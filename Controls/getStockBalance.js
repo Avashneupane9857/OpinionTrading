@@ -1,8 +1,8 @@
-import { STOCK_BALANCES } from "../dummyData.js";
+import { stockBalance } from "../models/stockBalance.js";
 
 export const getStockBalance = (req, res) => {
   const userId = req.params.userId;
-  const stockbalance = STOCK_BALANCES[userId];
+  const stockbalance = stockBalance[userId];
   if (stockbalance) {
     res.send(stockbalance);
   } else {

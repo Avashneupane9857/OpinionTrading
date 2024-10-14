@@ -1,26 +1,27 @@
-import { ORDERBOOK } from "../dummyData.js";
+
+import { orderBookModel } from "../models/orderBookModel.js";
 
 export const buyNoStock = (req, res) => {
   const { userId, stockSymbol, quantity, price } = req.body;
 
-  if (!ORDERBOOK[stockSymbol]) {
-    ORDERBOOK[stockSymbol] = { yes: {}, no: {} };
+  if (!orderBookModel[stockSymbol]) {
+    orderBookModel[stockSymbol] = { yes: {}, no: {} };
   }
 
-  if (!ORDERBOOK[stockSymbol].no[price]) {
-    ORDERBOOK[stockSymbol].no[price] = { total: 0, orders: {} };
+  if (!orderBookModel[stockSymbol].no[price]) {
+    orderBookModel[stockSymbol].no[price] = { total: 0, orders: {} };
   }
 
-  if (!ORDERBOOK[stockSymbol].no[price].orders[userId]) {
-    ORDERBOOK[stockSymbol].no[price].orders[userId] = 0;
+  if (!orderBookModel[stockSymbol].no[price].orders[userId]) {
+    orderBookModel[stockSymbol].no[price].orders[userId] = 0;
   }
 
-  ORDERBOOK[stockSymbol].no[price].orders[userId] += quantity;
+  orderBookModel[stockSymbol].no[price].orders[userId] += quantity;
 
-  ORDERBOOK[stockSymbol].no[price].total += quantity;
+  orderBookModel[stockSymbol].no[price].total += quantity;
 
   res.json({
     message: "Sell order placed successfully",
-    orderbook: ORDERBOOK[stockSymbol],
+    orderbook: orderBookModel[stockSymbol],
   });
 };

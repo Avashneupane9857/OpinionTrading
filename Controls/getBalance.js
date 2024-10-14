@@ -1,7 +1,8 @@
-import { INR_BALANCES } from "../dummyData.js";
+
+import { userModel } from "../models/userModel.js";
 export const getBalance = (req, res) => {
   const { userId } = req.params;
-  const userBalance = INR_BALANCES[userId];
+  const userBalance = userModel[userId];
   if (userBalance) {
     res.json(userBalance);
   } else {
